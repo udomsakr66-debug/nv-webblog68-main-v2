@@ -1,8 +1,12 @@
+const routes = require('./routes')
 let express = require('express');
 const app = express();
+const { sequelize } = require('./models')
+const config = require('./config/config')
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
+routes(app)
 
 app.get('/status', (req, res) => {
     res.send('Hello Node.js Server!')
@@ -42,8 +46,8 @@ app.delete('/user/:userId', function (req, res) {
 })
 
 
-let port = process.env.PORT || 8081;
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+sequelize.sync({ force: false }).then(() => {
+    app.listen(config.port, function () {
+        console.log('CoffeeShop Server running on port ' + config.port)
+    })
+})

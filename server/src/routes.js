@@ -1,20 +1,19 @@
 const UserController = require('./controllers/UserController')
+const CoffeeController = require('./controllers/CoffeeController')
 
 module.exports = (app) => {
-    /* RESFUL Api for users management */
-    
-    // create user
+    /* USER */
     app.post('/user', UserController.create)
-
-    // edit user, suspend, active
     app.put('/user/:userId', UserController.put)
-
-    // delete user
     app.delete('/user/:userId', UserController.remove)
-
-    // get user by id
     app.get('/user/:userId', UserController.show)
-
-    // get all user
     app.get('/users', UserController.index)
+
+    /* COFFEE */
+    app.post('/coffee', CoffeeController.create)
+    app.get('/coffees', CoffeeController.findAll)
+    app.get('/coffee/:id', CoffeeController.findById)
+    app.put('/coffee/:id', CoffeeController.update)
+    app.delete('/coffee/:id', CoffeeController.remove)
 }
+อ
